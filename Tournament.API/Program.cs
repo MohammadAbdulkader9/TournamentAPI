@@ -24,7 +24,7 @@ namespace Tournament.API
 
             builder.Services.AddScoped<ITournamentRepository, TournamentRepository>();
             builder.Services.AddScoped<IGameRepository, GameRepository>();
-
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // To help mapping Json and XML (Use on PATCH)
             builder.Services.AddControllers(opt => opt.ReturnHttpNotAcceptable = true)
