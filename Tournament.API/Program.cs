@@ -26,6 +26,9 @@ namespace Tournament.API
             builder.Services.AddScoped<IGameRepository, GameRepository>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            // Add Auto Mapper
+            builder.Services.AddAutoMapper(typeof(TournamentMappings));
+
             // To help mapping Json and XML (Use on PATCH)
             builder.Services.AddControllers(opt => opt.ReturnHttpNotAcceptable = true)
                 .AddNewtonsoftJson()
