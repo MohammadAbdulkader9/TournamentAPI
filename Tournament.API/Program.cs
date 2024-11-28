@@ -1,12 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Tournament.API.Extensions;
 using Tournament.Data.Data;
 
 namespace Tournament.API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<TournamentContext>(options =>
@@ -19,18 +20,23 @@ namespace Tournament.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            // To help mapping Json and XML
+            // To help mapping Json and XML (Use on PATCH)
             builder.Services.AddControllers(opt => opt.ReturnHttpNotAcceptable = true)
                 .AddNewtonsoftJson()
                 .AddXmlDataContractSerializerFormatters();
 
             var app = builder.Build();
 
+            
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+
+                // Call SeedData
+                await app.SeedDataAsync();
             }
 
             app.UseHttpsRedirection();

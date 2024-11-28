@@ -10,7 +10,7 @@ using Tournament.Core.Entities;
 
 namespace Tournament.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/TournamentDetails/{tournamentDetailsId}/Games")]
     [ApiController]
     public class GamesController : ControllerBase
     {
@@ -29,7 +29,7 @@ namespace Tournament.API.Controllers
         }
 
         // GET: api/Games/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<Game>> GetGame(int id)
         {
             var game = await _context.Game.FindAsync(id);
@@ -44,7 +44,7 @@ namespace Tournament.API.Controllers
 
         // PUT: api/Games/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> PutGame(int id, Game game)
         {
             if (id != game.Id)
