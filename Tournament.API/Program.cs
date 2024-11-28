@@ -14,6 +14,11 @@ namespace Tournament.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            // To help mapping Json and XML
+            builder.Services.AddControllers(opt => opt.ReturnHttpNotAcceptable = true)
+                .AddNewtonsoftJson()
+                .AddXmlDataContractSerializerFormatters();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
