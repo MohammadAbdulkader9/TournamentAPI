@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tournament.Core.Dto
 {
-    public record GameDto
+    public record TournamentCreateDto : TournamentForManipulationDto
     {
-        public int Id { get; init; }
-        public string? Title { get; init; }
-        public DateTime? Time { get; init; }
     }
 }

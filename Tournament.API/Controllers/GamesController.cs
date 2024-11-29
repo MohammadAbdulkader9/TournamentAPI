@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Tournament.Data.Data;
 using Tournament.Core.Entities;
 using Tournament.Core.Repositories;
+using AutoMapper;
+using Tournament.Core.Dto;
 
 namespace Tournament.API.Controllers
 {
@@ -17,11 +19,16 @@ namespace Tournament.API.Controllers
     {
         //private readonly TournamentContext _context;
         private readonly IUnitOfWork _uow;
+        private readonly IMapper _mapper;
 
-        public GamesController(TournamentContext context, IUnitOfWork uow)
+        //public GamesController(TournamentContext context)
+        //{
+        //    _context = context;
+        //}
+        public GamesController(IUnitOfWork uow, IMapper mapper)
         {
-            //_context = context;
             _uow = uow;
+            _mapper = mapper;
         }
 
         // GET: api/Games
@@ -32,7 +39,8 @@ namespace Tournament.API.Controllers
         //}
         public async Task<ActionResult<IEnumerable<Game>>> GetGame()
         {
-            var games = await _uow.GameRepository.GetAllAsync();
+            //var games = await _uow.GameRepository.GetAllAsync();
+            var games = _mapper.Map<IEnumerable<GameDto>>(await _uow.GameRepository.GetAllAsync());
             return Ok(games);
         }
 
@@ -49,12 +57,14 @@ namespace Tournament.API.Controllers
 
         //    return game;
         //}
-        public async Task<ActionResult<Game>> GetGame(int id)
+        public async Task<ActionResult<GameDto>> GetGame(int id)
         {
-            var game = await _uow.GameRepository.GetAsync(id);
+            Game? game = await _uow.GameRepository.GetAsync(id);
             if (game == null) return NotFound("No Available Games");
 
-            return Ok(game);
+            var dto = _mapper.Map<GameDto>(game);
+            return Ok(dto);
+
         }
 
         // PUT: api/Games/5
@@ -87,23 +97,16 @@ namespace Tournament.API.Controllers
 
         //    return NoContent();
         //}
-        public async Task<IActionResult> PutGame(int id, Game game)
+        public async Task<IActionResult> PutGame(int id, GameUpdateDto gameUpdateDto)
         {
-            if (id != game.Id) return BadRequest("Game ID mismatch");
+            if (id != gameUpdateDto.Id) return BadRequest("Game ID mismatch");
 
             var existingGames = await _uow.GameRepository.AnyAsync(id);
             if (!existingGames) return NotFound("No Games Found");
 
-            try
-            {
-                await _uow.CompleteAsync();
-            }
-            catch
-            {
-                return StatusCode(500, "An error occurred while updating the games.");
-            }
-
-            return NoContent();
+            _mapper.Map(gameUpdateDto, existingGames);
+            await _uow.CompleteAsync();
+            return Ok(_mapper.Map<GameDto>(existingGames));
         }
 
         // POST: api/Games
@@ -116,12 +119,15 @@ namespace Tournament.API.Controllers
 
         //    return CreatedAtAction("GetGame", new { id = game.Id }, game);
         //}
-        public async Task<ActionResult<Game>> PostGame(Game game)
+        public async Task<ActionResult<Game>> PostGame(GameCreateDto gameCreateDto)
         {
+            var game = _mapper.Map<Game>(gameCreateDto);
             _uow.GameRepository.Add(game);
             await _uow.CompleteAsync();
 
-            return CreatedAtAction("GetGame", new { id = game.Id }, game);
+            var createdGame = _mapper.Map<GameDto>(game);
+
+            return CreatedAtAction(nameof(GetGame), new { id = createdGame.Id }, createdGame);
         }
 
         // DELETE: api/Games/5
