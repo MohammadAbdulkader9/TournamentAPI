@@ -16,7 +16,7 @@ namespace Tournament.Core.Entities
         public DateTime Time { get; set; }
 
         // Forigen Key
-        public int tournamentDetailsId { get; set; }
+        public int TournamentDetailsId { get; set; }
 
         // Navigational property
         public TournamentDetails TournamentDetails { get; set; } = new TournamentDetails();

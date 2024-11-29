@@ -19,15 +19,13 @@ namespace Tournament.Data.Repositories
 
         public async Task<IEnumerable<TournamentDetails>> GetAllAsync(bool includeGames = false)
         {
-            return includeGames ?  await _context.TournamentDetails.Include(t => t.games).ToListAsync() :
+            return includeGames ?  await _context.TournamentDetails.Include(t => t.Games).ToListAsync() :
                                    await _context.TournamentDetails.ToListAsync();
         }
 
-        public async Task<TournamentDetails> GetAsync(int id)
+        public async Task<TournamentDetails?> GetAsync(int id)
         {
-            return await _context.TournamentDetails
-                .Include(t => t.games)
-                .FirstOrDefaultAsync(t => t.Id == id);
+            return await _context.TournamentDetails.FindAsync(id);
         }
 
         public async Task<bool> AnyAsync(int id)

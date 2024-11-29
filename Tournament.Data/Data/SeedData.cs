@@ -25,96 +25,116 @@ namespace Tournament.Data.Data
             {
                 new TournamentDetails
                 {
-                    Title = "Spring Championship",
-                    StartDate = new DateTime(2025, 3, 15),
-                    games = new List<Game>
+                    Title = "Elite Championship",
+                    StartDate = new DateTime(2025, 4, 1),
+                    Games = new List<Game>
                     {
                         new Game
                         {
-                            Title = "Quarter Final 1",
-                            Time = new DateTime(2025, 3, 16, 10, 0, 0)
+                            Title = "Elite Qualifier 1",
+                            Time = new DateTime(2025, 4, 2, 10, 0, 0)
                         },
                         new Game
                         {
-                            Title = "Quarter Final 2",
-                            Time = new DateTime(2025, 3, 16, 14, 0, 0)
+                            Title = "Elite Qualifier 2",
+                            Time = new DateTime(2025, 4, 2, 14, 0, 0)
                         },
                         new Game
                         {
-                            Title = "Semi Final",
-                            Time = new DateTime(2025, 3, 17, 12, 0, 0)
+                            Title = "Elite Finals",
+                            Time = new DateTime(2025, 4, 3, 18, 0, 0)
                         }
                     }
                 },
                 new TournamentDetails
                 {
-                    Title = "Summer League",
-                    StartDate = new DateTime(2025, 6, 1),
-                    games = new List<Game>
+                    Title = "Global Invitational",
+                    StartDate = new DateTime(2025, 8, 20),
+                    Games = new List<Game>
                     {
                         new Game
                         {
                             Title = "Opening Match",
-                            Time = new DateTime(2025, 6, 1, 18, 0, 0)
+                            Time = new DateTime(2025, 8, 20, 16, 0, 0)
                         },
                         new Game
                         {
-                            Title = "Group Stage Match",
-                            Time = new DateTime(2025, 6, 5, 15, 0, 0)
+                            Title = "Knockout Stage",
+                            Time = new DateTime(2025, 8, 22, 12, 0, 0)
+                        },
+                        new Game
+                        {
+                            Title = "Championship Match",
+                            Time = new DateTime(2025, 8, 25, 20, 0, 0)
                         }
                     }
                 },
                 new TournamentDetails
                 {
-                    Title = "Autumn Invitational",
-                    StartDate = new DateTime(2025, 10, 10),
-                    games = new List<Game>
+                    Title = "Legends Cup",
+                    StartDate = new DateTime(2025, 11, 5),
+                    Games = new List<Game>
                     {
                         new Game
                         {
-                            Title = "Preliminary Round",
-                            Time = new DateTime(2025, 10, 11, 9, 0, 0)
+                            Title = "Legends Qualifier",
+                            Time = new DateTime(2025, 11, 6, 14, 0, 0)
                         },
                         new Game
                         {
-                            Title = "Elimination Round",
-                            Time = new DateTime(2025, 10, 12, 14, 0, 0)
+                            Title = "Legends Semi Final",
+                            Time = new DateTime(2025, 11, 7, 17, 0, 0)
                         },
                         new Game
                         {
-                            Title = "Finals",
-                            Time = new DateTime(2025, 10, 15, 20, 0, 0)
+                            Title = "Legends Final",
+                            Time = new DateTime(2025, 11, 8, 19, 0, 0)
                         }
                     }
                 },
                 new TournamentDetails
                 {
-                    Title = "Winter Clash",
-                    StartDate = new DateTime(2025, 12, 20),
-                    games = new List<Game>
+                    Title = "Championship Series",
+                    StartDate = new DateTime(2026, 2, 15),
+                    Games = new List<Game>
                     {
                         new Game
                         {
-                            Title = "Snowball Showdown",
-                            Time = new DateTime(2025, 12, 21, 10, 0, 0)
+                            Title = "Series Opener",
+                            Time = new DateTime(2026, 2, 15, 10, 0, 0)
+                        },
+                        new Game
+                        {
+                            Title = "Series Match 1",
+                            Time = new DateTime(2026, 2, 17, 14, 0, 0)
+                        },
+                        new Game
+                        {
+                            Title = "Series Finale",
+                            Time = new DateTime(2026, 2, 20, 18, 0, 0)
                         }
                     }
                 },
                 new TournamentDetails
                 {
-                    Title = "Champions Cup",
-                    StartDate = new DateTime(2026, 1, 5),
-                    games = new List<Game>
+                    Title = "World Series",
+                    StartDate = new DateTime(2026, 5, 1),
+                    Games = new List<Game>
                     {
                         new Game
                         {
                             Title = "Opening Ceremony",
-                            Time = new DateTime(2026, 1, 5, 18, 0, 0)
+                            Time = new DateTime(2026, 5, 1, 16, 0, 0)
                         },
                         new Game
                         {
-                            Title = "Grand Final",
-                            Time = new DateTime(2026, 1, 10, 20, 0, 0)
+                            Title = "Semi Finals",
+                            Time = new DateTime(2026, 5, 5, 12, 0, 0)
+                        },
+                        new Game
+                        {
+                            Title = "World Championship",
+                            Time = new DateTime(2026, 5, 8, 20, 0, 0)
                         }
                     }
                 }
