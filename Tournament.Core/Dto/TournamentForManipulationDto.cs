@@ -10,7 +10,7 @@ namespace Tournament.Core.Dto
     public record TournamentForManipulationDto
     {
         [Required(ErrorMessage = "Tournament Title is a required field.")]
-        public string? Title { get; init; }
+        public string Title { get; init; }
         public DateTime StartDate { get; init; }
     }
 }

@@ -12,7 +12,6 @@ namespace Tournament.Data.Repositories
     {
         private readonly TournamentContext _context;   
         public ITournamentRepository TournamentRepository { get; }
-
         public IGameRepository GameRepository { get; }
 
         public UnitOfWork(TournamentContext context)

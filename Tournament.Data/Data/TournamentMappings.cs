@@ -14,12 +14,14 @@ namespace Tournament.Data.Data
         public TournamentMappings()
         {
             CreateMap<TournamentDetails, TournamentDto>();
-            CreateMap<TournamentDetails, TournamentCreateDto>();
-            CreateMap<TournamentDetails, TournamentUpdateDto>().ReverseMap();
+            CreateMap<TournamentCreateDto, TournamentDetails>();
+            CreateMap<TournamentUpdateDto, TournamentDetails>();
 
             CreateMap<Game, GameDto>();
-            CreateMap<Game, GameUpdateDto>();
-            CreateMap<Game, GameCreateDto>().ReverseMap();
+            CreateMap<GameCreateDto, Game>();
+            CreateMap<GameUpdateDto, Game>();
+            //CreateMap<GameCreateDto, Game>()
+            //.ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title));
         }
 
     }

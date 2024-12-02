@@ -37,7 +37,7 @@ namespace Tournament.API.Controllers
         //{
         //    return await _context.Game.ToListAsync();
         //}
-        public async Task<ActionResult<IEnumerable<Game>>> GetGame()
+        public async Task<ActionResult<IEnumerable<GameDto>>> GetGames()
         {
             //var games = await _uow.GameRepository.GetAllAsync();
             var games = _mapper.Map<IEnumerable<GameDto>>(await _uow.GameRepository.GetAllAsync());
@@ -63,8 +63,8 @@ namespace Tournament.API.Controllers
             if (game == null) return NotFound("No Available Games");
 
             var dto = _mapper.Map<GameDto>(game);
+            
             return Ok(dto);
-
         }
 
         // PUT: api/Games/5
@@ -101,11 +101,12 @@ namespace Tournament.API.Controllers
         {
             if (id != gameUpdateDto.Id) return BadRequest("Game ID mismatch");
 
-            var existingGames = await _uow.GameRepository.AnyAsync(id);
-            if (!existingGames) return NotFound("No Games Found");
+            var existingGames = await _uow.GameRepository.GetAsync(id);
+            if (existingGames == null) return NotFound("No Games Found");
 
             _mapper.Map(gameUpdateDto, existingGames);
             await _uow.CompleteAsync();
+
             return Ok(_mapper.Map<GameDto>(existingGames));
         }
 
@@ -124,7 +125,7 @@ namespace Tournament.API.Controllers
             var game = _mapper.Map<Game>(gameCreateDto);
             _uow.GameRepository.Add(game);
             await _uow.CompleteAsync();
-
+            
             var createdGame = _mapper.Map<GameDto>(game);
 
             return CreatedAtAction(nameof(GetGame), new { id = createdGame.Id }, createdGame);

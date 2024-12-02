@@ -30,7 +30,7 @@ namespace Tournament.Data.Repositories
 
         public async Task<bool> AnyAsync(int id)
         {
-            return await _context.TournamentDetails.AnyAsync(t => t.Id == id);
+            return await _context.TournamentDetails.AnyAsync();
         }
 
         public void Add(TournamentDetails tournament)

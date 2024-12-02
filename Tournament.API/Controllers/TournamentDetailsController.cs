@@ -104,8 +104,8 @@ namespace Tournament.API.Controllers
         {
             if (id != tournamentUpdateDto.Id) return BadRequest("Tournament ID mismatch");
 
-            var existingTournaments = await _uow.TournamentRepository.AnyAsync(id);
-            if (!existingTournaments) return NotFound("No Tournaments Found");
+            var existingTournaments = await _uow.TournamentRepository.GetAsync(id);
+            if (existingTournaments == null) return NotFound("No Tournaments Found");
 
             _mapper.Map(tournamentUpdateDto, existingTournaments);
             await _uow.CompleteAsync();
