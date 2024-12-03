@@ -13,6 +13,8 @@ namespace Tournament.Core.Dto
         public DateTime? StartDate { get; init; }
         public DateTime? EndDate { get; init; }
 
+        public IEnumerable<GameDto>? Games { get; init; }
+
         public TournamentDto(int id, string? title, DateTime? startDate)
         {
             Id = id;
