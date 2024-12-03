@@ -15,11 +15,11 @@ namespace Tournament.Data.Data
         {
             CreateMap<TournamentDetails, TournamentDto>();
             CreateMap<TournamentCreateDto, TournamentDetails>();
-            CreateMap<TournamentUpdateDto, TournamentDetails>();
+            CreateMap<TournamentUpdateDto, TournamentDetails>().ReverseMap();
 
             CreateMap<Game, GameDto>();
             CreateMap<GameCreateDto, Game>();
-            CreateMap<GameUpdateDto, Game>();
+            CreateMap<GameUpdateDto, Game>().ReverseMap();
         }
 
     }

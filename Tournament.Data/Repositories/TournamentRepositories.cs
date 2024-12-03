@@ -27,7 +27,7 @@ namespace Tournament.Data.Repositories
         {
             return await _context.TournamentDetails.FindAsync(id);
         }
-
+       
         public async Task<bool> AnyAsync(int id)
         {
             return await _context.TournamentDetails.AnyAsync();
