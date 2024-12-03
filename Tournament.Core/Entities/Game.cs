@@ -18,7 +18,7 @@ namespace Tournament.Core.Entities
         // Forigen Key
         public int TournamentDetailsId { get; set; }
 
-        // Navigational property
-        public TournamentDetails TournamentDetails { get; set; } = new TournamentDetails();
+        // Navigational property - Caused Title null problem in postman
+        public TournamentDetails? TournamentDetails { get; set; } //= new TournamentDetails();
     }
 }

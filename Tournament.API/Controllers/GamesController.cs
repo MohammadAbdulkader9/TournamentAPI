@@ -120,15 +120,17 @@ namespace Tournament.API.Controllers
 
         //    return CreatedAtAction("GetGame", new { id = game.Id }, game);
         //}
-        public async Task<ActionResult<Game>> PostGame(GameCreateDto gameCreateDto)
+        public async Task<ActionResult<Game>> PostGame(int tournamentDetailsId, GameCreateDto gameCreateDto)
         {
             var game = _mapper.Map<Game>(gameCreateDto);
+            game.TournamentDetailsId = tournamentDetailsId;
             _uow.GameRepository.Add(game);
+
             await _uow.CompleteAsync();
             
             var createdGame = _mapper.Map<GameDto>(game);
 
-            return CreatedAtAction(nameof(GetGame), new { id = createdGame.Id }, createdGame);
+            return CreatedAtAction(nameof(GetGame), new {tournamentDetailsId, id = game.Id }, createdGame);
         }
 
         // DELETE: api/Games/5

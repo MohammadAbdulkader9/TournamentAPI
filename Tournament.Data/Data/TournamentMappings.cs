@@ -20,8 +20,6 @@ namespace Tournament.Data.Data
             CreateMap<Game, GameDto>();
             CreateMap<GameCreateDto, Game>();
             CreateMap<GameUpdateDto, Game>();
-            //CreateMap<GameCreateDto, Game>()
-            //.ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title));
         }
 
     }
