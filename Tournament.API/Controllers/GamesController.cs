@@ -121,7 +121,7 @@ namespace Tournament.API.Controllers
 
         //    return CreatedAtAction("GetGame", new { id = game.Id }, game);
         //}
-        public async Task<ActionResult<Game>> PostGame(int tournamentDetailsId, GameCreateDto gameCreateDto)
+        public async Task<ActionResult<GameDto>> PostGame(int tournamentDetailsId, GameCreateDto gameCreateDto)
         {
             var game = _mapper.Map<Game>(gameCreateDto);
             game.TournamentDetailsId = tournamentDetailsId;

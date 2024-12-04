@@ -40,7 +40,7 @@ namespace Tournament.API.Controllers
         //{
         //    return await _context.TournamentDetails.ToListAsync();
         //}
-        public async Task<ActionResult<IEnumerable<TournamentDetails>>> GetTournamentDetails(bool includeGames)
+        public async Task<ActionResult<IEnumerable<TournamentDto>>> GetTournamentDetails(bool includeGames)
         {
             //var tournaments = await _uow.TournamentRepository.GetAllAsync();
             var tournaments = includeGames ? _mapper.Map<IEnumerable<TournamentDto>>(await _uow.TournamentRepository.GetAllAsync(true)) :
@@ -124,7 +124,7 @@ namespace Tournament.API.Controllers
 
         //    return CreatedAtAction("GetTournamentDetails", new { id = tournamentDetails.Id }, tournamentDetails);
         //}
-        public async Task<ActionResult<TournamentDetails>> PostTournamentDetails(TournamentCreateDto tournamentCreateDto)
+        public async Task<ActionResult<TournamentDto>> PostTournamentDetails(TournamentCreateDto tournamentCreateDto)
         {
             var tournament = _mapper.Map<TournamentDetails>(tournamentCreateDto);
             _uow.TournamentRepository.Add(tournament);
