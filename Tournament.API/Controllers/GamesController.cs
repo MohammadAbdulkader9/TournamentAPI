@@ -10,6 +10,7 @@ using Tournament.Core.Entities;
 using Tournament.Core.Repositories;
 using AutoMapper;
 using Tournament.Core.Dto;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace Tournament.API.Controllers
 {
@@ -157,6 +158,37 @@ namespace Tournament.API.Controllers
             await _uow.CompleteAsync();
 
             return NoContent();
+        }
+
+        //PATCH
+        [HttpPatch("{id:int}")]
+        public async Task<ActionResult<GameDto>> PatchGame(int id, 
+            JsonPatchDocument<GameUpdateDto> patchDocument)
+        {
+            if (patchDocument is null) return BadRequest("No patch document");
+
+            // Fetch game entity
+            var gameToPatch = await _uow.GameRepository.GetAsync(id);
+            if (gameToPatch == null) return BadRequest("Game not found");
+
+            // Map the entity to Dto
+            var gameDto = _mapper.Map<GameUpdateDto>(gameToPatch);
+
+            // Apply the patch
+            patchDocument.ApplyTo(gameDto, ModelState);
+
+            // Validate the patch
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+
+            // Map the patched Dto to entity
+            _mapper.Map(gameDto, gameToPatch);
+
+            // Save the changes
+            await _uow.CompleteAsync();
+
+            // Return updated Dto
+            var updatedGameDto = _mapper.Map<GameUpdateDto>(gameToPatch);
+            return Ok(updatedGameDto);
         }
 
         //private bool GameExists(int id)
