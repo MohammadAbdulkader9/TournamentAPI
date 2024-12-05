@@ -8,44 +8,42 @@ using Tournament.Data.Data;
 
 namespace Tournament.Data.Repositories
 {
-    public class TournamentRepository : ITournamentRepository
+    public class TournamentRepository : RepositoryBase<TournamentDetails>, ITournamentRepository
     {
-        private readonly TournamentContext _context;
+        //private readonly TournamentContext _context;
 
-        public TournamentRepository(TournamentContext context)
+        public TournamentRepository(TournamentContext context) : base(context) { }
+
+        public async Task<IEnumerable<TournamentDetails>> GetAllAsync(bool includeGames = false, bool trackChanges = false)
         {
-            _context = context;
+            return includeGames ?  await FindAll(trackChanges).Include(t => t.Games).ToListAsync() :
+                                   await FindAll(trackChanges).ToListAsync();
         }
 
-        public async Task<IEnumerable<TournamentDetails>> GetAllAsync(bool includeGames = false)
+        public async Task<TournamentDetails?> GetAsync(int id, bool trackChanges = false)
         {
-            return includeGames ?  await _context.TournamentDetails.Include(t => t.Games).ToListAsync() :
-                                   await _context.TournamentDetails.ToListAsync();
-        }
-
-        public async Task<TournamentDetails?> GetAsync(int id)
-        {
-            return await _context.TournamentDetails.FindAsync(id);
+            return await FindByCondition(t => t.Id.Equals(id), trackChanges).FirstOrDefaultAsync();
         }
        
         public async Task<bool> AnyAsync(int id)
         {
-            return await _context.TournamentDetails.AnyAsync();
+            return await FindAll().AnyAsync();
         }
 
-        public void Add(TournamentDetails tournament)
-        {
-            _context.TournamentDetails.Add(tournament);
-        }
+        
+        //public void Add(TournamentDetails tournament)
+        //{
+        //    _context.TournamentDetails.Add(tournament);
+        //}
 
-        public void Update(TournamentDetails tournament)
-        {
-            _context.TournamentDetails.Update(tournament);
-        }
+        //public void Update(TournamentDetails tournament)
+        //{
+        //    _context.TournamentDetails.Update(tournament);
+        //}
 
-        public void Remove(TournamentDetails tournament)
-        {
-            _context.TournamentDetails.Remove(tournament);
-        }
+        //public void Remove(TournamentDetails tournament)
+        //{
+        //    _context.TournamentDetails.Remove(tournament);
+        //}
     }
 }

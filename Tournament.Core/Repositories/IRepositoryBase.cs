@@ -11,7 +11,7 @@ namespace Tournament.Core.Repositories
     {
         void Add(T entity);
         void Update(T entity);
-        void Delete(T entity);
+        void Remove(T entity);
 
         IQueryable<T> FindAll(bool trackChanges = false);
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges = false);
