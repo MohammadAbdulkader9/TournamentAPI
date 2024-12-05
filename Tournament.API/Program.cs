@@ -26,6 +26,9 @@ namespace Tournament.API
             builder.Services.AddScoped<IGameRepository, GameRepository>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            // Added Cors
+           builder.Services.ConfigureCors();
+
             // Add Auto Mapper
             builder.Services.AddAutoMapper(typeof(TournamentMappings));
 
@@ -49,6 +52,8 @@ namespace Tournament.API
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("AllowAll");
 
             app.UseAuthorization();
 
